@@ -1,3 +1,7 @@
+
+import 'dart:async';
+
+import 'package:data_api/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 
@@ -13,6 +17,7 @@ class UpdateData extends StatefulWidget {
 }
 
 class _UpdateDataState extends State<UpdateData> {
+  Service service=Service();
   final _idController =TextEditingController();
   final _titleController=TextEditingController();
   
@@ -38,24 +43,12 @@ class _UpdateDataState extends State<UpdateData> {
           ),
           SizedBox(height: 12,),
           ElevatedButton(onPressed: (){
-            updateUser(id: widget.user.id);
+            service.updateUser(id:int.parse(_idController.text));
           }, child: Text('Update'),),
 
         ],
       ),
     );
   }
-  void updateUser({required int id}) async {
-    var url=Uri.parse('https://jsonplaceholder.typicode.com/todos/$id');
-    var response=await http.put(url);
-    if(response.statusCode == 200){
-      await ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content:Text('User Updated Successfully!'),
-            backgroundColor: Colors.greenAccent,
-          ),
-      );
-      Navigator.pop(context);
 
-    }
-  }
 }

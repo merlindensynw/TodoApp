@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:data_api/add_data.dart';
-import 'package:data_api/delete_data.dart';
+
+import 'package:data_api/service.dart';
 import 'package:data_api/update_data.dart';
 import 'package:data_api/user.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +14,7 @@ class GetData extends StatefulWidget {
 }
 
 class _GetDataState extends State<GetData> {
-  Future<List<User>> getUserData() async {
-    var response =
-        await http.get(Uri.https('jsonplaceholder.typicode.com', 'todos'));
-    final List jsonData = jsonDecode(response.body) as List<dynamic>;
-    List<User> users = [];
-    for (final u in jsonData) {
-      User user = User.fromJson(u);
-      users.add(user);
-    }
-    print(users.length);
-    return users;
-  }
+Service service=Service();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +32,7 @@ class _GetDataState extends State<GetData> {
       body: Container(
         child: Card(
           child: FutureBuilder(
-            future: getUserData(),
+            future: service.getUserData(),
             builder: (context, AsyncSnapshot<List<User>> snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -70,7 +60,7 @@ class _GetDataState extends State<GetData> {
                           trailing: IconButton(
                             icon: Icon(Icons.clear),
                             onPressed: () {
-                              deletedata(
+                              service.deletedata(
                                 user: snapshot.data![i],
                                 context: context,
                               );
