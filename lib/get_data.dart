@@ -32,7 +32,7 @@ Service service=Service();
       body: Container(
         child: Card(
           child: FutureBuilder(
-            future: service.getUserData(),
+            future: service.getUserData(context: context),
             builder: (context, AsyncSnapshot<List<User>> snapshot) {
               if (snapshot.data == null) {
                 return Container(

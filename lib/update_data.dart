@@ -43,7 +43,7 @@ class _UpdateDataState extends State<UpdateData> {
           ),
           SizedBox(height: 12,),
           ElevatedButton(onPressed: (){
-            service.updateUser(id:int.parse(_idController.text));
+            service.updateUser(id:int.parse(_idController.text),context: context);
           }, child: Text('Update'),),
 
         ],

@@ -41,7 +41,7 @@ class _AppDataState extends State<AppData> {
             ),
             ElevatedButton(
               onPressed:() {
-                service.send(id: int.parse(_id.text), title: _title.text);
+                service.send(id: int.parse(_id.text), title: _title.text,context: context);
               },child: Text("Add Data"),
             ),
           ],
